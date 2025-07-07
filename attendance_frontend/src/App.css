@@ -58,6 +58,29 @@
   transition: color 0.3s ease;
 }
 
+/* Navigation Styles */
+.main-header .nav-link {
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.main-header .nav-link:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
+.admin-sidenav .admin-side-link.active,
+.main-header .nav-link[style*="underline"]  {
+  color: var(--button-bg);
+  text-decoration: underline;
+}
+
+/* Admin dashboard layout */
+.admin-dashboard-layout {
+  min-height: 100vh;
+}
+
 .theme-toggle {
   position: absolute;
   top: 20px;
