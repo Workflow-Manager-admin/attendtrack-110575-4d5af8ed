@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import EmployeeCheckin from "../components/EmployeeCheckin";
+import LeaveApplication from "../components/LeaveApplication";
 
 // Mock data for leave balance
 const mockLeaveBalance = {
@@ -99,31 +100,40 @@ function EmployeeDashboard() {
         <EmployeeCheckin />
       </section>
 
-      {/* Leave Balance */}
+      {/* Leave Management Section */}
       <section style={{
+        gridColumn: "1 / -1",
         background: "var(--bg-secondary)",
         padding: "1.5rem",
         borderRadius: "16px",
         boxShadow: "var(--shadow-light)",
       }}>
-        <h2 style={{ margin: "0 0 1rem 0", fontSize: "1.4rem" }}>Leave Balance</h2>
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-          gap: "1rem",
+          gap: "2rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
         }}>
-          <LeaveCard type="Annual" balance={mockLeaveBalance.annual} />
-          <LeaveCard type="Sick" balance={mockLeaveBalance.sick} />
-          <LeaveCard type="Unpaid" balance={mockLeaveBalance.unpaid} />
+          {/* Leave Balance */}
+          <div>
+            <h2 style={{ margin: "0 0 1rem 0", fontSize: "1.4rem" }}>Leave Balance</h2>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+              gap: "1rem",
+              marginBottom: "1.5rem"
+            }}>
+              <LeaveCard type="Annual" balance={mockLeaveBalance.annual} />
+              <LeaveCard type="Sick" balance={mockLeaveBalance.sick} />
+              <LeaveCard type="Unpaid" balance={mockLeaveBalance.unpaid} />
+            </div>
+          </div>
+
+          {/* Leave Application */}
+          <div style={{ minWidth: 0 }}>
+            <h2 style={{ margin: "0 0 1rem 0", fontSize: "1.4rem" }}>Leave Application</h2>
+            <LeaveApplication />
+          </div>
         </div>
-        <button className="btn" style={{
-          width: "100%",
-          marginTop: "1rem",
-          background: "var(--button-accent-bg)",
-          color: "var(--button-accent-text)",
-        }}>
-          Apply for Leave
-        </button>
       </section>
 
       {/* Quick Links */}
