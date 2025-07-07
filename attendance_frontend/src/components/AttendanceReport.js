@@ -179,9 +179,17 @@ function AttendanceReport() {
                 <td style={{
                   ...tdStyle,
                   fontWeight: 600,
-                  color: rec.status === "Present" ? "#388e3c" : "#b71c1c"
+                  padding: "4px 0"
                 }}>
-                  {rec.status}
+                  <span className={
+                    rec.status === "Present"
+                      ? "status-badge status-present"
+                      : rec.status === "Absent"
+                      ? "status-badge status-absent"
+                      : "status-badge"
+                  }>
+                    {rec.status}
+                  </span>
                 </td>
               </tr>
             ))}
@@ -211,16 +219,17 @@ const thStyle = {
   padding: "10px 16px",
   textAlign: "left",
   fontWeight: 700,
-  color: "var(--text-secondary)",
-  fontSize: 15,
-  borderBottom: "2px solid var(--border-color)",
-  background: "transparent"
+  color: "var(--color-secondary)",
+  fontSize: 16,
+  borderBottom: "2px solid var(--color-primary)",
+  background: "var(--table-header-bg)"
 };
 
 const tdStyle = {
   padding: "8px 16px",
   color: "var(--text-primary)",
-  fontSize: 17
+  fontSize: 17,
+  background: "transparent"
 };
 
 export default AttendanceReport;

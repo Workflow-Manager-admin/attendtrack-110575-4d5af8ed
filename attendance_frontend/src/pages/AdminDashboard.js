@@ -261,21 +261,30 @@ function AdminDashboard() {
  * Renders a summary card for quick stats.
  */
 function SummaryCard({ label, value, color }) {
+  // Brand colors: blue, green, orange, red are handled via the incoming color prop or style
+  let accentBg = {
+    "#fbc02d": "rgba(251,192,45,0.14)",
+    "#b71c1c": "rgba(251,60,60,0.08)",
+    "#1976d2": "rgba(25,118,210,0.07)",
+    "#43a047": "rgba(67,160,71,0.13)",
+  }[color] || "var(--table-header-bg)";
+  let accentColor = color;
+
   return (
     <div style={{
       flex: "1 1 160px",
       minWidth: 148,
       padding: "18px 20px",
-      background: "var(--bg-secondary)",
+      background: accentBg,
       borderRadius: 16,
-      boxShadow: "0 1px 7px rgba(0,0,0,0.045)",
+      boxShadow: "var(--shadow-light)",
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
       gap: 7,
     }}>
-      <span style={{ color: "#888", fontSize: 14, fontWeight: 600 }}>{label}</span>
-      <span style={{ fontSize: 28, fontWeight: 800, color: color }}>
+      <span style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 600 }}>{label}</span>
+      <span style={{ fontSize: 28, fontWeight: 800, color: accentColor }}>
         {value}
       </span>
     </div>
@@ -329,10 +338,16 @@ function UserSection({ users, onRemove, onDeactivate }) {
               <td style={{
                 ...userTdStyle,
                 fontWeight: 700,
-                color: user.status === "Active"
-                  ? "#388e3c"
-                  : "#b71c1c"
-              }}>{user.status}</td>
+                padding: "4px 0"
+              }}>
+                <>
+                  <span className={
+                    user.status === "Active"
+                      ? "status-badge status-present"
+                      : "status-badge status-absent"
+                  }>{user.status}</span>
+                </>
+              </td>
               <td style={userTdStyle}>{user.present}</td>
               <td style={userTdStyle}>{user.absent}</td>
               <td style={userTdStyle}>{user.late}</td>
@@ -360,14 +375,16 @@ function UserSection({ users, onRemove, onDeactivate }) {
                 <button
                   onClick={() => onRemove(user.id)}
                   style={{
-                    background: "#b71c1c",
-                    color: "white",
+                    background: "var(--button-accent-bg)",
+                    color: "var(--button-accent-text)",
                     border: "none",
-                    borderRadius: 5,
-                    padding: "3px 8px",
+                    borderRadius: 7,
+                    padding: "5px 13px",
                     fontWeight: 700,
                     marginLeft: 3,
                     cursor: "pointer",
+                    fontSize: 15,
+                    boxShadow: "0 1px 4px rgba(251,192,45,0.08)",
                   }}
                   title="Remove user"
                 >

@@ -1,24 +1,62 @@
 /* CSS Variables for Theme Management */
 :root {
   /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --color-primary: #1976d2;
+  --color-secondary: #424242;
+  --color-accent: #fbc02d;
+
+  --bg-primary: #f6f8fa;
+  --bg-secondary: #ffffff;
+  --surface: #f9fafb;
+  --text-primary: #212121;
+  --text-secondary: #555a63;
+  --text-muted: #7a7a7a;
+  --text-highlight: var(--color-primary);
+
+  --border-color: #e0e3e7;
+  --button-bg: var(--color-primary);
+  --button-text: #fff;
+  --button-accent-bg: var(--color-accent);
+  --button-accent-text: #393300;
+  --navbar-bg: #ffffff;
+  --navbar-link: var(--color-primary);
+
+  --admin-sidenav-bg: #f3f4f6;
+  --admin-sidenav-active-bg: var(--color-primary);
+  --admin-sidenav-active-text: #fff;
+  --admin-sidenav-text: var(--color-secondary);
+  --table-header-bg: #f2f4f7;
+  --table-header-text: var(--color-secondary);
+
+  --shadow: 0 2px 12px rgba(33, 33, 33, 0.06);
+  --shadow-light: 0 1px 7px rgba(33,33,33,0.03);
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  /* Optional: Slightly darker look, but still prioritizing brand colors */
+  --bg-primary: #23272c;
+  --bg-secondary: #24292f;
+  --surface: #1a1e23;
+  --text-primary: #f4f6f9;
+  --text-secondary: #adb5bd;
+  --text-muted: #888;
+  --text-highlight: var(--color-accent);
+
+  --border-color: #32374d;
+  --button-bg: var(--color-primary);
+  --button-text: #fff;
+  --button-accent-bg: var(--color-accent);
+  --button-accent-text: #231e00;
+  --navbar-bg: #20252b;
+  --navbar-link: var(--color-accent);
+  --admin-sidenav-bg: #23272c;
+  --admin-sidenav-active-bg: var(--color-accent);
+  --admin-sidenav-active-text: #23272c;
+  --admin-sidenav-text: #adb5bd;
+  --table-header-bg: #21242a;
+  --table-header-text: #fbc02d;
+  --shadow: 0 2px 12px rgba(33, 33, 33, 0.25);
+  --shadow-light: 0 1px 7px rgba(33,33,33,0.11);
 }
 
 .App {
@@ -59,21 +97,60 @@
 }
 
 /* Navigation Styles */
+.main-header {
+  background: var(--navbar-bg);
+  min-height: 56px;
+  box-shadow: var(--shadow-light);
+}
+
+.main-header .logo {
+  color: var(--color-primary);
+  letter-spacing: 0.5px;
+  font-size: 22px;
+}
+
+.main-header nav {
+  display: flex;
+}
+
 .main-header .nav-link {
-  font-size: 16px;
-  font-weight: 500;
-  transition: color 0.2s;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 0 1.1rem;
+  color: var(--color-secondary);
+  text-decoration: none;
+  border-radius: 5px 5px 0 0;
+  background: none;
+  transition: all 0.22s cubic-bezier(.4,0,.2,1);
+  margin: 0 0.2rem;
+  line-height: 40px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.main-header .nav-link.active,
+.main-header .nav-link[aria-current="page"],
+.main-header .nav-link[style*="underline"] {
+  color: var(--color-primary);
+  background: rgba(25,118,210,0.08);
+  box-shadow: inset 0 -3px 0 var(--color-accent);
+  text-decoration: none;
 }
 
 .main-header .nav-link:hover {
-  opacity: 0.85;
+  color: var(--color-accent);
+  background: rgba(251,192,45,0.09);
   text-decoration: underline;
+  box-shadow: none;
 }
 
 .admin-sidenav .admin-side-link.active,
 .main-header .nav-link[style*="underline"]  {
-  color: var(--button-bg);
+  color: var(--color-accent);
+  background: rgba(251,192,45,0.09);
   text-decoration: underline;
+  font-weight: 700;
 }
 
 /* Admin dashboard layout */
@@ -81,39 +158,144 @@
   min-height: 100vh;
 }
 
+.admin-sidenav {
+  background: var(--admin-sidenav-bg);
+  border-right: 2.5px solid var(--border-color);
+  min-width: 220px;
+  height: 100%;
+  box-shadow: -2px 0 14px -9px rgba(66,66,66,0.025);
+}
+
+.admin-sidenav .admin-side-link {
+  color: var(--admin-sidenav-text);
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 7px;
+  margin-bottom: 0.35rem;
+  transition: all 0.19s cubic-bezier(.4,0,.2,1);
+  display: block;
+}
+
+.admin-sidenav .admin-side-link.active {
+  background: var(--admin-sidenav-active-bg);
+  color: var(--admin-sidenav-active-text);
+  font-weight: 700;
+  box-shadow: 0 1px 7px rgba(33,33,33,0.045);
+}
+
+.admin-sidenav .admin-side-link:hover {
+  background: rgba(25,118,210,0.09);
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.btn,
 .theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
+  background: var(--button-bg);
   color: var(--button-text);
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: 0 1px 6px rgba(25, 118, 210, 0.03);
+  padding: 10px 22px;
+  min-width: 125px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s, box-shadow 0.18s, color 0.17s;
+  outline: none;
+  margin: 0 2px;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
-}
-
+.btn:active,
 .theme-toggle:active {
-  transform: translateY(0);
+  background: var(--color-secondary);
+  color: var(--color-accent);
+  box-shadow: 0 0px 0 #1976d2;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn:hover,
+.theme-toggle:hover {
+  background: var(--button-accent-bg);
+  color: var(--button-accent-text);
+  box-shadow: 0 2px 12px rgba(251,192,45,0.11);
+}
+
+.btn[disabled],
+.theme-toggle[disabled] {
+  background: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Table styles */
+table {
+  font-family: inherit;
+  background: transparent;
+  border-spacing: 0;
+  width: 100%;
+}
+
+table thead tr {
+  background: var(--table-header-bg);
+  border-bottom: 2.5px solid var(--color-primary);
+}
+
+table thead th {
+  color: var(--color-secondary);
+  font-size: 16px;
+}
+
+table tbody tr {
+  background: none;
+  transition: background 0.13s;
+}
+
+table tbody tr:hover {
+  background: rgba(25,118,210,0.06);
+}
+
+.status-badge {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 3px 10px;
+  border-radius: 7px;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.status-present {
+  background: rgba(25,118,210,0.10);
+  color: var(--color-primary);
+}
+
+.status-absent {
+  background: rgba(251,60,60,0.10);
+  color: #b71c1c;
+}
+
+.status-late {
+  background: rgba(251,192,45,0.19);
+  color: var(--color-accent);
+}
+
+/* Input styles for dashboard/forms */
+input, select {
+  border: 1.5px solid var(--border-color);
+  border-radius: 7px;
+  padding: 9px 13px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 16px;
+  transition: border 0.14s;
+  margin-right: 3px;
+}
+
+input:focus, select:focus {
+  border: 1.5px solid var(--color-primary);
+  outline: none;
 }
 
 /* Responsive design for mobile */
@@ -123,5 +305,15 @@
     right: 10px;
     padding: 8px 16px;
     font-size: 12px;
+  }
+  .admin-dashboard-layout {
+    flex-direction: column;
+  }
+  .admin-sidenav {
+    min-width: 100%;
+    padding: 0.8rem;
+  }
+  .admin-content {
+    padding: 1.1rem !important;
   }
 }
