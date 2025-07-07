@@ -7,6 +7,7 @@ import EmployeeCheckin from './components/EmployeeCheckin';
 import AttendanceHistory from './components/AttendanceHistory';
 import AdminDashboard from './pages/AdminDashboard';
 import AttendanceReport from './components/AttendanceReport';
+import RoleSelector from './components/RoleSelector';
 
 // Side navigation for Admin Section
 function AdminSideNav() {
@@ -48,9 +49,20 @@ function AdminSideNav() {
 // PUBLIC_INTERFACE
 function App() {
   /**
-   * Main application entry point for routes, theming, dash layout.
+   * Main application entry point for routes, theming, dash layout, and role selection.
    */
   const [theme, setTheme] = useState('light');
+
+  // Persistent role state (default "employee")
+  const ROLE_KEY = "attend_role";
+  const [role, setRole] = useState(() => {
+    const stored = localStorage.getItem(ROLE_KEY);
+    if (stored === "admin" || stored === "employee") return stored;
+    return "employee";
+  });
+  useEffect(() => {
+    localStorage.setItem(ROLE_KEY, role);
+  }, [role]);
 
   // Effect to apply theme to document element
   useEffect(() => {
@@ -169,26 +181,46 @@ function App() {
     );
   }
 
+  // Main: Show either employee or admin view, based on role.
   return (
     <div className="App">
       <AppHeader />
-      <Routes>
-        {/* Employee portal (root) */}
-        <Route path="/" element={<EmployeeLayout />} />
-        {/* Admin dashboard (protected) */}
-        <Route path="/admin/*" element={
-          <AdminLayout>
-            <Routes>
-              <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="report" element={<AttendanceReport />} />
-              {/* Default: redirect /admin to dashboard */}
-              <Route index element={<Navigate to="dashboard" replace />} />
-            </Routes>
-          </AdminLayout>
-        } />
-        {/* Catch all: redirect to root (employee area) */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <div style={{ width: "100%", display: "flex", justifyContent: "flex-end", marginTop: 4 }}>
+        <RoleSelector role={role} onChange={setRole} />
+      </div>
+      {role === "employee" ? (
+        // Employee portal UI (no admin side nav, just the core employee functions)
+        <div style={{ width: "100%" }}>
+          <main className="employee-main"
+            style={{
+              maxWidth: 600,
+              margin: '2rem auto',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2rem',
+            }}>
+            <EmployeeCheckin />
+            <AttendanceHistory />
+          </main>
+        </div>
+      ) : (
+        // Admin all-in-one (this mirrors the admin dashboard area)
+        <div style={{ width: "100%" }}>
+          <div
+            className="admin-dashboard-layout"
+            style={{
+              display: 'flex',
+              minHeight: 'calc(100vh - 60px)',
+              background: 'var(--bg-primary)',
+            }}
+          >
+            <AdminSideNav />
+            <main className="admin-content" style={{ flex: 1, padding: '2.5rem 2.5rem 2.5rem 2.5rem', minHeight: '100vh' }}>
+              <AdminDashboard />
+            </main>
+          </div>
+        </div>
+      )}
       <AppFooter />
     </div>
   );
