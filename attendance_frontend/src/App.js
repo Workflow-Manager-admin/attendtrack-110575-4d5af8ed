@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 // Feature imports
 import EmployeeCheckin from './components/EmployeeCheckin';
 import AttendanceHistory from './components/AttendanceHistory';
+import EmployeeDashboard from './pages/EmployeeDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import AttendanceReport from './components/AttendanceReport';
 import { AuthScreen, getAuthenticatedUser, logoutUser } from './components/Auth';
@@ -187,17 +188,7 @@ function App() {
     return (
       <div className="App">
         <AppHeader />
-        <main className="employee-main"
-          style={{
-            maxWidth: 600,
-            margin: '2rem auto',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '2rem',
-          }}>
-          <EmployeeCheckin />
-          <AttendanceHistory />
-        </main>
+        <EmployeeDashboard />
         <AppFooter />
       </div>
     );

@@ -53,17 +53,10 @@ function EmployeeCheckin() {
   };
 
   return (
-    <section
-      style={{
-        background: "var(--bg-secondary)",
-        borderRadius: 18,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.025)",
-        padding: "2rem 1.5rem",
-        minWidth: 260,
-        marginTop: 10,
-        marginBottom: 10,
-        textAlign: "center",
-      }}
+    <section style={{
+      textAlign: "center",
+      marginBottom: "1rem"
+    }}
     >
       <h2 style={{marginTop: 0, marginBottom: 16}}>Employee Check-In/Check-Out</h2>
       <div style={{marginBottom: 20, fontSize: 18}}>
